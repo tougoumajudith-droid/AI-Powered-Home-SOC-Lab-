@@ -1,0 +1,22 @@
+
+title: Atomic Red Team Execution via PowerShell ScriptBlock
+id: b3c4d5e6-f7a8-9012-bcde-f01234567890
+status: experimental
+description: Detects Atomic Red Team T1059.004 execution via PowerShell on Linux
+author: Judith
+date: 2026/05/25
+logsource:
+  product: linux
+  service: syslog
+detection:
+  keywords:
+    - 'Invoke-AtomicRedTeam'
+    - 'ScriptBlock_Compile_Detail'
+    - 'Attire-ExecutionLogger'
+  condition: keywords
+falsepositives:
+  - Authorized red team exercises
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.004
