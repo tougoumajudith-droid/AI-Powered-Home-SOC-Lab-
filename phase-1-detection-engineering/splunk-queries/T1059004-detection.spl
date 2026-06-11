@@ -1,0 +1,14 @@
+# Detection query - T1059.004 Unix Shell Execution
+# Validated against real Splunk logs 
+
+# Basic detection
+index=* ("Invoke-AtomicRedTeam" OR "ScriptBlock_Compile_Detail" OR "Attire-ExecutionLogger")
+| table _time host source _raw
+| sort -_time
+
+# Advanced -  with 5 minute threshold
+index=* ("Invoke-AtomicRedTeam" OR "ScriptBlock_Compile_Detail")
+| bucket _time span=5m
+| stats count by _time host
+| where count >= 2
+| sort -count
